@@ -1,0 +1,6 @@
+* Keep another array that appends the minimum value each time you `push` a new value to the stack and `pop`s every time you `pop` from the main stack
+
+```
+main stack -> [1, 2, 0, 3, 1]
+min stack  -> [1, 1, 0, 0, 0]
+```
