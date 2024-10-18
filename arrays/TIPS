@@ -1,0 +1,10 @@
+* Can I transform the data before approaching the problem?
+    - Can I sort the data?
+    - Can I reverse the data?
+
+* Which type of array data structure do I need?
+    - Stack/Heap?
+
+* Should I use an additional data structure?
+    - As a counter?
+    - As a dictionary?
