@@ -69,12 +69,13 @@ class MyLinkedList:
         return node
 
 
-
     def print(self) -> int:
 
         for i in range(self.length):
             node = self.__get_node(i)
             print(node.val)
+
+        print()
 
 
     def get(self, index: int) -> int:
@@ -83,48 +84,6 @@ class MyLinkedList:
         val = node.val if node else -1
 
         return val
-
-
-    def addAtIndex(self, index: int, val: int) -> None:
-
-        node = self.__get_node(index)
-        previous = None
-
-        if node:
-            previous = node.previous
-
-        new_node = LinkedListNode(val=val, next=node, previous=previous)
-
-        if node:
-            node.previous = new_node
-
-
-        if index == 0:
-            self.head = new_node
-            self.tail = new_node
-
-        elif index == self.length:
-            self.tail = new_node
-
-        self.length += 1
-
-
-    def deleteAtIndex(self, index: int) -> None:
-
-        node = self.__get_node(index)
-
-        if node:
-            previous = node.previous
-            next_ = node.next
-
-            if previous:
-                previous.next = next_
-
-            if next_:
-                next_.previous = previous
-
-        del node
-        self.length -= 1
 
 
     def addAtHead(self, val: int) -> None:
@@ -137,26 +96,112 @@ class MyLinkedList:
         self.addAtIndex(self.length, val)
 
 
+    def addAtIndex(self, index: int, val: int) -> None:
 
-obj = MyLinkedList()
-obj.print()
+        if (index == 0) and (self.length == 0):
 
-obj.addAtHead(1)
-obj.print()
+            node = LinkedListNode(val=val, next=None, previous=None)
 
-obj.addAtTail(3)
-obj.print()
+            self.head = node
+            self.tail = node
 
-exit()
-obj.addAtIndex(1, 2)
-obj.print()
+        elif (index == 0):
 
-obj.get(1)
-obj.print()
+            node = LinkedListNode(val=val, next=self.head, previous=None)
 
-obj.deleteAtIndex(1)
-obj.print()
+            self.head.previous = node
+            self.head = node
 
-obj.get(1)
-obj.print()
+        elif index == self.length:
 
+            node = LinkedListNode(val=val, next=None, previous=self.tail)
+
+            self.tail.next = node
+            self.tail = node
+
+        elif index < self.length:
+
+            node = self.__get_node(index)
+
+            new_node = LinkedListNode(val=val, next=node, previous=node.previous)
+
+            if node.previous:
+                node.previous.next = new_node
+
+            node.previous = new_node
+
+        else:
+            return
+
+        self.length += 1
+
+
+    def deleteAtIndex(self, index: int) -> None:
+
+        if (index == 0) and (self.head):
+
+            self.head = self.head.next
+
+            if self.head:
+                self.head.previous = None
+
+        elif (index == self.length-1):
+
+            self.tail = self.tail.previous
+            self.tail.next = None
+
+        elif (0 < index) and (index < self.length):
+
+            node = self.__get_node(index)
+            node.previous.next = node.next
+
+            if node.next:
+                node.next.previous = node.previous
+
+        else:
+            return
+
+        self.length -= 1
+
+
+
+if False:
+    obj = MyLinkedList()
+    obj.print()
+
+    obj.addAtHead(1)
+    obj.print()
+
+    obj.addAtTail(3)
+    obj.print()
+
+    obj.addAtIndex(1, 2)
+    obj.print()
+
+    obj.get(1)
+    obj.print()
+
+    obj.deleteAtIndex(2)
+    obj.print()
+
+elif True:
+
+    obj = MyLinkedList()
+
+    obj.addAtIndex(1, 2)
+    obj.print()
+
+    obj.addAtIndex(3, 4)
+    obj.print()
+
+    obj.addAtTail(1)
+    obj.print()
+
+    obj.get(0)
+    obj.print()
+
+    obj.deleteAtIndex(0)
+    obj.print()
+
+    obj.get(0)
+    obj.print()
