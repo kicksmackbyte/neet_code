@@ -36,6 +36,7 @@ students[i] is 0 or 1.
 '''
 
 
+from collections import defaultdict
 from typing import List
 
 class Solution:
@@ -63,6 +64,29 @@ class Solution:
                     students.append(student)
 
         return len(students)
+
+
+    def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
+
+        hungry_students = len(students)
+        preferences = defaultdict(int)
+
+        for s in students:
+            preferences[s] += 1
+
+
+        for s in sandwiches:
+
+            if preferences[s] > 0:
+
+                preferences[s] -= 1
+                hungry_students -= 1
+
+            else:
+                break
+
+
+        return hungry_students
 
 
 solution = Solution()
