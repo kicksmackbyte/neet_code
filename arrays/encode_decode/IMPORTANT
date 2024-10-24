@@ -1,0 +1,2 @@
+* Encode additional information + delimiter BEFORE each word
+    - i.e. word length + ';'
