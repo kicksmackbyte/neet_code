@@ -31,18 +31,26 @@ class Solution:
 
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
 
-        if root:
+        diameter = 0
+        def _helper(node):
 
-            left_height = self.diameterOfBinaryTree(root.left)
-            right_height = self.diameterOfBinaryTree(root.right)
+            nonlocal diameter
 
-            if left_height > right_height:
-                return 1 + left_height
+            if node:
+
+                left_height = _helper(node.left)
+                right_height = _helper(node.right)
+
+                diameter = max(diameter, left_height + right_height)
+
+                return 1 + max(left_height, right_height)
+
             else:
-                return 1 + right_height
+                return 0
 
-        else:
-            return 0
+
+        _helper(root)
+        return diameter
 
 
 e = TreeNode(5)
