@@ -20,8 +20,24 @@ from typing import List
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        pass
+        max_profit = 0
+        minimum_purchase = prices[0]
+
+        for p in prices:
+            max_profit = max(max_profit, p-minimum_purchase)
+            minimum_purchase = min(minimum_purchase, p)
+
+        return max_profit
 
 
 solution = Solution()
 
+
+prices = [7, 1, 5, 3, 6, 4]
+answer = solution.maxProfit(prices)
+assert answer == 5, f'Got: {answer}, Expected: {5}'
+
+
+prices = [7, 6, 4, 3, 1]
+answer = solution.maxProfit(prices)
+assert answer == 0
